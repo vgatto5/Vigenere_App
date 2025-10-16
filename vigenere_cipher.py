@@ -1,18 +1,3 @@
-def menu():
-    line='-'*30
-    print(format('Vigenere Cipher','^30'))
-    print(format('Select One Option','^30'))
-    print(line)
-    menu='''    1) Encrypt a message
-    2) Decrypt a message
-    9) Exit Program'''
-    print(menu)
-    print(line)
-    selection=input('Enter Selection Here: ')
-    return selection
-
-
-
 def adjusted_key(text,key):
     adjusted=""
     key_pos=0
@@ -24,7 +9,7 @@ def adjusted_key(text,key):
             adjusted=adjusted+char
     return adjusted
 
-def encrypted_vigenere(key, text):
+def encrypted_vigenere(text, key):
     key.lower()
     text.lower()
 
@@ -42,7 +27,7 @@ def encrypted_vigenere(key, text):
 
     return encrypted
 
-def decrypt_vigenere(key, text):
+def decrypt_vigenere(text, key):
     key.lower()
     text.lower()
 
