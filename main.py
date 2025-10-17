@@ -15,6 +15,7 @@ class EncryptionApp(Tk):
      
 
 class EncryptPage(Frame):
+    complete = False
     def __init__(self, parent, controller):
         super().__init__()
         self.controller = controller
@@ -38,6 +39,13 @@ class EncryptPage(Frame):
         cipher_text = vigenere_cipher.encrypted_vigenere(plaintext, key)
 
         return cipher_text
+    
+
+    #if (complete)
+       # Label(self, text="Ciphertext:" + cipher_text, font=("Times New Roman", 20)).pack(pady=10)
+
+    #buttons after encryption either "Encrypt Again" or "Decrypt"
+
 
 
 
@@ -45,9 +53,37 @@ class EncryptPage(Frame):
 
 
 class DecryptPage(Frame):
+    complete = False
     def __init__(self, parent, controller):
         super().__init__()
+        self.controller.controller
 
+        Label(self, text="Decrypt", font=("Times New Roman", 56)).pack(pady=20)
+        Label(self, text="Enter a message to decrypt:", font=("Times New Roman", 35)).pack(pady=10)
+
+        self.user_ciphertext = Entry(self, height=5, font=("Times New Roman", 20))
+        self.user_ciphertext.pack(pady=10)
+
+        Label(self, text="Enter a key:", font=("Times New Roman", 35)).pack(pady=10)
+        self.user_key = Entry(self, font=("Times New Roman", 20))
+        self.user_key.pack(pady=10)
+
+        Button(self, text="Decrypt", font=("Times New Roman", 20), command=self.decrypt).pack(pady=10)
+
+    def decrypt(self):
+        ciphertext = self.user_ciphertext.get().strip()
+        key = self.user_key.get().strip()
+        adjustedKey = vigenere_cipher.adjusted_key(ciphertext, key)
+        plain_text = vigenere_cipher.decrypted_vigenere(ciphertext, key)
+
+        return plain_text
+    
+    #if (complete):
+        #Label(self, text="Plaintext:" + plain_text, font=("Times New Roman", 20)).pack(pady=10)
+        
+ 
+
+    #buttons after encryption either "Decrypt Again" or "Encrypt"
 
 
 
