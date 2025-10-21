@@ -12,13 +12,16 @@ class EncryptionApp(Tk):
         container.pack(fill="both", expand=True)
 
 
+
+
      
 
 class EncryptPage(Frame):
-    complete = False
-    def __init__(self, parent, controller):
-        super().__init__()
-        self.controller = controller
+    complete = None
+    plaintext = ''
+    ciphertext = ''
+    key = ''
+    def __init__(self, parent):
 
         Label(self, text="Encrypt", font=("Times New Roman", 56)).pack(pady=20)
         Label(self, text="Enter a message to encrypt:", font=("Times New Roman", 35)).pack(pady=10)
@@ -32,19 +35,33 @@ class EncryptPage(Frame):
 
         Button(self, text="Encrypt", font=("Times New Roman", 20), command=self.encrypt).pack(pady=10)
 
+        self.outputLabel = Label(self, text='', font=("Times New Roman", 20))
+        self.outputLabel.pack(pady = 10)
+
+        self.complete = False
+
+        if (self.complete):
+            Label(self, text="Ciphertext:" + self.ciphertext, font=("Times New Roman", 20)).pack(pady=10)
+
+
     def encrypt(self):
         plaintext = self.user_plaintext.get().strip()
         key = self.user_key.get().strip()
+        if not plaintext or not key:
+            self.outputLabel.config(text = 'Error: missing plaintext or key')
+            return
         adjustedKey = vigenere_cipher.adjusted_key(plaintext, key)
         cipher_text = vigenere_cipher.encrypted_vigenere(plaintext, key)
 
-        return cipher_text
+        self.ciphertext = cipher_text
+        self.complete  = True
+
+        self.outputLabel.config(text='Ciphertext: ' + cipher_text)
     
 
-    #if (complete)
-       # Label(self, text="Ciphertext:" + cipher_text, font=("Times New Roman", 20)).pack(pady=10)
-
     #buttons after encryption either "Encrypt Again" or "Decrypt"
+    #need to add error handling for empty inputs or invalid keys
+
 
 
 
@@ -54,9 +71,8 @@ class EncryptPage(Frame):
 
 class DecryptPage(Frame):
     complete = False
-    def __init__(self, parent, controller):
+    def __init__(self, parent):
         super().__init__()
-        self.controller.controller
 
         Label(self, text="Decrypt", font=("Times New Roman", 56)).pack(pady=20)
         Label(self, text="Enter a message to decrypt:", font=("Times New Roman", 35)).pack(pady=10)
